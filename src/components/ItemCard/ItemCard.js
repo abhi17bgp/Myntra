@@ -14,7 +14,7 @@ export default function ItemCard( {item , index} ) {
         <div className="item-card" key={index}>
             <div className="item-image">
                 <Link to={`/${item.id}`}>
-                    <img src={(item.images)} alt={item.name}/>
+                    <img src={(item.images[0])} alt={item.name}/>
                 </Link>
                 <div className="rating-detail" > 
                     {item.rating} <i class="fas fa-star star"></i> | {nFormatter(item.numberOfReviews)}

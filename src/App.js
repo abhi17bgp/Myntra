@@ -4,6 +4,7 @@ import {HomePage , ProductPage} from './pages/index.js';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import { useSelector } from 'react-redux';
 import {Page404} from './components/index.js';
+
 function App() {
   const { modals , similarProducts } = useSelector(state => ({
       modals : state.modalsStore,

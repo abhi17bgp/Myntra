@@ -105,6 +105,43 @@
     font-weight: bold;
     color: rgb(255, 255, 255);
 }
+.wishlist-counter {
+    position: absolute;
+    top: -5px;  /* Adjust as needed */
+    right: -5px;  /* Adjust as needed */
+    background-color: #28a745; /* Green color */
+    color: white;
+    font-size: 10px;
+    padding: 2px 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;  /* Size of the counter */
+    height: 18px; /* Size of the counter */
+    font-weight: bold;
+    animation: bounce 1s infinite;  /* Bounce animation */
+}
+
+
+/* Less pronounced bounce animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-2px); /* Slight upward bounce */
+    }
+    60% {
+        transform: translateY(-1px); /* Smaller bounce */
+    }
+}
+
+/* Apply the bounce animation to an element */
+.custom-bounce {
+    animation: bounce 1s ease-in-out infinite;
+}
+
 
 
 

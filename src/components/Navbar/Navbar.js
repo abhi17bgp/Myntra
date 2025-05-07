@@ -7,18 +7,18 @@ import { ReactComponent as Wishlist } from "../../assets/images/heart.svg";
 import { ReactComponent as Bag } from "../../assets/images/bag.svg";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import {Link } from "react-router-dom";
-import {openModal} from '../../actions/modals';
-import { search , toggleSearchState } from '../../actions/search';
+import { Link } from "react-router-dom";
+import { openModal } from '../../actions/modals';
+import { search, toggleSearchState } from '../../actions/search';
+
 export default function Navbar() {
-    const {currentSearchQuery , isSearchActive} = useSelector(state => {
+    const { currentSearchQuery, isSearchActive } = useSelector(state => {
         return {
-            currentSearchQuery : state.searchStore.query,
-            isSearchActive : state.searchStore.isSearchActive
+            currentSearchQuery: state.searchStore.query,
+            isSearchActive: state.searchStore.isSearchActive
         }
     });
-    const [query , setQuery] = useState(currentSearchQuery);
-    console.log(currentSearchQuery , query);
+    const [query, setQuery] = useState(currentSearchQuery);
     const dispatch = useDispatch();
     const navLinks = [
         "MEN",
@@ -27,23 +27,27 @@ export default function Navbar() {
         "HOME & LIVING",
         "OFFERS"
     ];
-    function searchQueryHandler(query){
+
+    function searchQueryHandler(query) {
         query = query.trim();
-        dispatch( search(query) )
+        dispatch(search(query));
     }
+
     const bagItemCount = useSelector(state => state.bagStore.length);
+    const wishlistItemCount = useSelector(state => state.wishlistStore.length); // Fetching wishlist item count
+
     return (
-        <div className=" navbar flex-row" >
+        <div className="navbar flex-row">
             <Link to="/">
-                <img 
-                    src={logo} 
-                    alt="logo" 
-                    className = {isSearchActive ? "logo mobile-hide" : "logo"}
+                <img
+                    src={logo}
+                    alt="logo"
+                    className={isSearchActive ? "logo mobile-hide" : "logo"}
                 />
             </Link>
-            <div className="nav-links-container flex-row ">
+            <div className="nav-links-container flex-row">
                 {
-                    navLinks.map((navLink, index) => {   
+                    navLinks.map((navLink, index) => {
                         return (
                             <Link to="/" key={index}>
                                 <div className="nav-link"> {navLink} </div>
@@ -53,26 +57,26 @@ export default function Navbar() {
                 }
             </div>
             <div className={isSearchActive ? "search-container flex-row center " : "mobile-hide search-container flex-row center "}>
-                <span 
+                <span
                     className="back-from-search"
-                    onClick={() =>{
+                    onClick={() => {
                         dispatch(toggleSearchState(false))
                     }}
                 >
-                    <i class="fas fa-arrow-left"></i>
+                    <i className="fas fa-arrow-left"></i>
                 </span>
-                <Search 
-                    className="search-icon" 
+                <Search
+                    className="search-icon"
                     onClick={() => {
                         let searchQuery = query;
                         searchQueryHandler(searchQuery);
                     }}
                 />
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     className="search-box"
                     placeholder='Search for products, brands...'
-                    value={query!==null ? query : ""}
+                    value={query !== null ? query : ""}
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === "Enter") {
@@ -80,40 +84,45 @@ export default function Navbar() {
                             searchQueryHandler(searchQuery);
                         }
                     }}
-                >
-                </input>
-                <span 
-                    className={(query===null || query==="") ? "hide" : "clear-query-button"} 
+                />
+                <span
+                    className={(query === null || query === "") ? "hide" : "clear-query-button"}
                     onClick={() => {
                         setQuery(null);
                         searchQueryHandler(null)
                     }}
                 >
-                    <i class="far fa-times-circle"></i>
+                    <i className="far fa-times-circle"></i>
                 </span>
             </div>
-            <div className={isSearchActive ? "mobile-hide action-container flex-row" : "action-container flex-row"}  >
-                <div 
-                    className="action-item mobile-search-button" 
+            <div className={isSearchActive ? "mobile-hide action-container flex-row" : "action-container flex-row"}>
+                <div
+                    className="action-item mobile-search-button"
                     onClick={() => dispatch(toggleSearchState(true))}
                 >
                     <Search className="action-icon" />
                 </div>
-                <div className="action-item" >
+                <div className="action-item">
                     <Profile className="action-icon" />
                     <p className="action-text">Profile</p>
                 </div>
-                <div className="action-item" 
-                    onClick={() => dispatch(openModal('wishlist'))}
-                >
-                    <Wishlist className="action-icon" />
-                    <p className="action-text">Wishlist</p>
-                </div>
-                <div className="action-item" 
+                <div className="action-item" onClick={() => dispatch(openModal('wishlist'))}>
+    <Wishlist className="action-icon" />
+    <p className="action-text">Wishlist</p>
+    {wishlistItemCount > 0 && (
+       <span className="wishlist-counter ">
+       {wishlistItemCount}
+     </span>
+     
+    )}
+</div>
+
+
+                <div className="action-item"
                     onClick={() => dispatch(openModal('bag'))}
                 >
                     <Bag className="action-icon" />
-                    {bagItemCount!==0 && <p className="bag-item-count">{bagItemCount} </p>}
+                    {bagItemCount !== 0 && <p className="bag-item-count">{bagItemCount} </p>}
                     <p className="action-text">Bag</p>
                 </div>
             </div>

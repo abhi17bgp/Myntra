@@ -6,7 +6,7 @@ import { addItemToWishlist , removeItemFromWishlist } from '../../actions/wishli
 import { useDispatch , useSelector } from 'react-redux'; 
 import { nFormatter , isInWishList } from '../../helpers/general';
 export default function ItemCard( {item , index} ) {
-    
+        
     const dispatch = useDispatch();
     const wishlist = useSelector(state => state.wishlistStore);
     let isWishlisted = isInWishList( wishlist , item );

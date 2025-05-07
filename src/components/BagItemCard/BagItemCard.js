@@ -15,7 +15,7 @@ export default function BagItemCard({ item }) {
         <div className="bag-item-card"  >
             <Link to={`/${item.id}`}>
                 <div className="bag-item-image-container">
-                    <img src={item.images[0]} alt="product" className="bag-item-image"/>
+                    <img src={item.images} alt="product" className="bag-item-image"/>
                 </div>
             </Link>
             <div className="bag-item-details">
